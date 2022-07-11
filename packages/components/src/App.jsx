@@ -9,7 +9,7 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
-        <p>Components 4</p>
+        <p>Components 5</p>
         <p>
           <button type='button' onClick={() => setCount((count) => count + 1)}>
             count is: {count}
