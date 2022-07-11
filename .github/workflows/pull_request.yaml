@@ -1,0 +1,41 @@
+name: Deploy CI
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+jobs:
+  release:
+    name: Deploy website
+    runs-on: ubuntu-18.04
+    if: "contains(github.event.pull_request.body, 'surge deploy') || contains(github.event.comment.body, 'surge deploy')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install && npm i -g surge
+
+      - name: Build static site
+        run: yarn build # Build your website
+
+      - name: Deploy
+        uses: koj-co/deploy-pr-action@v1.0.1
+        with:
+          prefix: aws-github # Prefix for deployment URL
+          robotsTxtPath: dist/robots.txt # Add robots.txt file
+          distDir: dist # Path to dist directory
+        env:
+          GITHUB_TOKEN: ${{ secrets.SURGE_GITHUB_TOKEN }} # GitHub token
+          SURGE_LOGIN: ${{ secrets.SURGE_EMAIL }} # Surge.sh email
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} # Surge.sh token
