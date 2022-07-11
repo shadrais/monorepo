@@ -24,7 +24,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run:  cd packages/app && yarn install
+        run:  cd packages/app && npm i -g surge && yarn install
 
       - name: Build static site
         run: cd packages/app && yarn build # Build your website
@@ -55,7 +55,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run:  cd packages/components && yarn install
+        run:  cd packages/components && npm i -g surge && yarn install
 
       - name: Build static site
         run: cd packages/components && yarn build # Build your website
