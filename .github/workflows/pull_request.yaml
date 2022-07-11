@@ -33,8 +33,8 @@ jobs:
         uses: koj-co/deploy-pr-action@v1.0.1
         with:
           prefix: aws-github # Prefix for deployment URL
-          robotsTxtPath: dist/robots.txt # Add robots.txt file
-          distDir: cd packages/app/dist # Path to dist directory
+          robotsTxtPath: packages/app/dist/robots.txt # Add robots.txt file
+          distDir: packages/app/dist # Path to dist directory
         env:
           GITHUB_TOKEN: ${{ secrets.SURGE_GITHUB_TOKEN }} # GitHub token
           SURGE_LOGIN: ${{ secrets.SURGE_EMAIL }} # Surge.sh email
