@@ -10,9 +10,9 @@ on:
       - synchronize
 jobs:
   release:
-    name: Deploy website
+    name: Deploy App
     runs-on: ubuntu-18.04
-    if: "contains(github.event.pull_request.body, 'surge deploy') || contains(github.event.comment.body, 'surge deploy')"
+    if: "contains(github.event.pull_request.body, 'app deploy') || contains(github.event.comment.body, 'app deploy')"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,17 +24,48 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install && npm i -g surge
+        run:  cd packages/app && yarn install
 
       - name: Build static site
-        run: yarn build # Build your website
+        run: cd packages/app yarn build # Build your website
 
       - name: Deploy
         uses: koj-co/deploy-pr-action@v1.0.1
         with:
           prefix: aws-github # Prefix for deployment URL
           robotsTxtPath: dist/robots.txt # Add robots.txt file
-          distDir: dist # Path to dist directory
+          distDir: cd packages/app/dist # Path to dist directory
+        env:
+          GITHUB_TOKEN: ${{ secrets.SURGE_GITHUB_TOKEN }} # GitHub token
+          SURGE_LOGIN: ${{ secrets.SURGE_EMAIL }} # Surge.sh email
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} # Surge.sh token
+    
+  release2:
+    name: Deploy Components
+    runs-on: ubuntu-18.04
+    if: "contains(github.event.pull_request.body, 'components deploy') || contains(github.event.comment.body, 'components deploy')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run:  cd packages/components && yarn install
+
+      - name: Build static site
+        run: cd packages/components yarn build # Build your website
+
+      - name: Deploy
+        uses: koj-co/deploy-pr-action@v1.0.1
+        with:
+          prefix: aws-github # Prefix for deployment URL
+          robotsTxtPath: dist/robots.txt # Add robots.txt file
+          distDir: cd packages/components/dist # Path to dist directory
         env:
           GITHUB_TOKEN: ${{ secrets.SURGE_GITHUB_TOKEN }} # GitHub token
           SURGE_LOGIN: ${{ secrets.SURGE_EMAIL }} # Surge.sh email
