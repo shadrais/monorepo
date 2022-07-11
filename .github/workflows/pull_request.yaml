@@ -27,7 +27,7 @@ jobs:
         run:  cd packages/app && yarn install
 
       - name: Build static site
-        run: cd packages/app yarn build # Build your website
+        run: cd packages/app && yarn build # Build your website
 
       - name: Deploy
         uses: koj-co/deploy-pr-action@v1.0.1
@@ -58,7 +58,7 @@ jobs:
         run:  cd packages/components && yarn install
 
       - name: Build static site
-        run: cd packages/components yarn build # Build your website
+        run: cd packages/components && yarn build # Build your website
 
       - name: Deploy
         uses: koj-co/deploy-pr-action@v1.0.1
