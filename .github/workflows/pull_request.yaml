@@ -8,6 +8,9 @@ on:
       - opened
       - edited
       - synchronize
+      
+env:
+  REACT_APP_MY_SECRET: HELLO SECRET
 jobs:
   release:
     name: Deploy App
