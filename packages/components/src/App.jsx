@@ -10,7 +10,7 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
-        <p>{import.meta.env.VITE_APP_MY_SECRET} TEST 1</p>
+        <p>{import.meta.env.VITE_APP_MY_SECRET} TEST 2</p>
         <p>
           <button type='button' onClick={() => setCount((count) => count + 1)}>
             count is: {count}
