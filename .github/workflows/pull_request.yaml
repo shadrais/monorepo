@@ -10,7 +10,7 @@ on:
       - synchronize
       
 env:
-  VITE_APP_MY_SECRET: HELLO SECRET
+  VITE_APP_MY_SECRET: SECRET
 jobs:
   release:
     name: Deploy App
