@@ -9,7 +9,7 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
-        <p>THis is react app monorepo</p>
+        <p>THis is react app monorepo 1</p>
         <p>
           <button type='button' onClick={() => setCount((count) => count + 1)}>
             count is: {count}
